@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مركز مهند للتكنولوجيا - لخدمات الشحن</title>
+    <!-- خط تجوال من جوجل -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            var(--primary): #4f46e5;
+            var(--primary-hover): #4338ca;
+            var(--bg-color): #0f172a;
+            var(--card-bg): #1e293b;
+            var(--text-color): #f8fafc;
+            var(--text-muted): #94a3b8;
+            var(--accent): #22c55e;
+            var(--border-color): #334155;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            color: #fff;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h2 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* شبكة اختيار التطبيقات */
+        .grid-select {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 12px;
+        }
+
+        .select-item {
+            background: #0f172a;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 15px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .select-item:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .select-item.active {
+            border-color: var(--primary);
+            background-color: rgba(79, 70, 229, 0.1);
+        }
+
+        .select-item img {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            margin-bottom: 8px;
+            object-fit: cover;
+        }
+
+        /* حقول الإدخال */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            background-color: #0f172a;
+            border: 1px solid var(--border-color);
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus {
+            border-color: var(--primary);
+        }
+
+        /* قائمة الباقات */
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+        }
+
+        .package-item {
+            background: #0f172a;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .package-item.active {
+            border-color: var(--accent);
+            background-color: rgba(34, 197, 94, 0.05);
+        }
+
+        .package-amount {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .package-price {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* ملخص الطلب والزر */
+        .btn-submit {
+            width: 100%;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .summary {
+            margin-top: 15px;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>💻 مركز مهند للتكنولوجيا</h1>
+            <p>بوابتك الأسرع لشحن الألعاب والتطبيقات بأمان وموثوقية</p>
+        </header>
+
+        <!-- 1. اختيار اللعبة/التطبيق -->
+        <div class="card">
+            <h2>1. اختر التطبيق أو اللعبة</h2>
+            <div class="grid-select" id="appsList">
+                <div class="select-item active" onclick="selectApp(this, 'ببجي موبايل')">
+                    <img src="https://via.placeholder.com/50/ff9900/fff?text=PUBG" alt="PUBG">
+                    <div>ببجي</div>
+                </div>
+                <div class="select-item" onclick="selectApp(this, 'فري فاير')">
+                    <img src="https://via.placeholder.com/50/e11d48/fff?text=FF" alt="Free Fire">
+                    <div>فري فاير</div>
+                </div>
+                <div class="select-item" onclick="selectApp(this, 'تيك توك')">
+                    <img src="https://via.placeholder.com/50/000000/fff?text=TikTok" alt="TikTok">
+                    <div>تيك توك</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. بيانات الحساب -->
+        <div class="card">
+            <h2>2. بيانات الحساب</h2>
+            <div class="form-group">
+                <label for="playerId">معرّف الحساب (ID / اسم المستخدم):</label>
+                <input type="text" id="playerId" placeholder="مثال: 5123456789">
+            </div>
+        </div>
+
+        <!-- 3. اختيار الباقة -->
+        <div class="card">
+            <h2>3. اختر الباقة</h2>
+            <div class="packages-grid" id="packagesList">
+                <div class="package-item active" onclick="selectPackage(this, '60 شدة / جوهرة', '1.00$')">
+                    <div class="package-amount">60 وحدة</div>
+                    <div class="package-price">1.00 $</div>
+                </div>
+                <div class="package-item" onclick="selectPackage(this, '325 شدة / جوهرة', '5.00$')">
+                    <div class="package-amount">325 وحدة</div>
+                    <div class="package-price">5.00 $</div>
+                </div>
+                <div class="package-item" onclick="selectPackage(this, '660 شدة / جوهرة', '10.00$')">
+                    <div class="package-amount">660 وحدة</div>
+                    <div class="package-price">10.00 $</div>
+                </div>
+                <div class="package-item" onclick="selectPackage(this, '1800 شدة / جوهرة', '25.00$')">
+                    <div class="package-amount">1800 وحدة</div>
+                    <div class="package-price">25.00 $</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. إتمام الطلب -->
+        <div class="card">
+            <button class="btn-submit" onclick="submitOrder()">تأكيد ودفع الطلب</button>
+            <div class="summary" id="orderSummary">
+                التطبيق: ببجي موبايل | الباقة: 60 وحدة | السعر: 1.00$
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentApp = "ببجي موبايل";
+        let currentPackage = "60 وحدة";
+        let currentPrice = "1.00$";
+
+        function selectApp(element, appName) {
+            document.querySelectorAll('#appsList .select-item').forEach(el => el.classList.remove('active'));
+            element.classList.add('active');
+            currentApp = appName;
+            updateSummary();
+        }
+
+        function selectPackage(element, packageName, price) {
+            document.querySelectorAll('#packagesList .package-item').forEach(el => el.classList.remove('active'));
+            element.classList.add('active');
+            currentPackage = packageName;
+            currentPrice = price;
+            updateSummary();
+        }
+
+        function updateSummary() {
+            document.getElementById('orderSummary').innerText = 
+                `التطبيق: ${currentApp} | الباقة: ${currentPackage} | السعر: ${currentPrice}`;
+        }
+
+        function submitOrder() {
+            const playerId = document.getElementById('playerId').value.trim();
+
+            if (!playerId) {
+                alert("يرجى إدخال معرّف الحساب (ID) أولاً!");
+                return;
+            }
+
+            // رقمك الخاص لاستقبال طلبات "مركز مهند للتكنولوجيا"
+            const whatsappNumber = "963957455972"; 
+            const message = `طلب شحن جديد من (مركز مهند للتكنولوجيا):%0A` +
+                            `- التطبيق: ${currentApp}%0A` +
+                            `- الآيدي (ID): ${playerId}%0A` +
+                            `- الباقة: ${currentPackage}%0A` +
+                            `- السعر: ${currentPrice}`;
+
+            const url = `https://wa.me/${whatsappNumber}?text=${message}`;
+            window.open(url, '_blank');
+        }
+    </script>
+</body>
+</html>
