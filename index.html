@@ -1,0 +1,43 @@
+<!-- Deposit Modal (إضافة رصيد شام كاش) -->
+<div class="modal-overlay" id="depositModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h2><i class="fa-solid fa-money-bill-transfer"></i> شحن الرصيد (شام كاش)</h2>
+      <button onclick="closeModals()" style="background:none; border:none; color:#94a3b8; font-size:1.2rem; cursor:pointer;"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <!-- بطاقة بيانات الحساب والـ QR -->
+    <div class="admin-card" style="background:#131d31; text-align:center;">
+      <span style="font-size:0.8rem; color:#94a3b8; display:block; margin-bottom:6px;">امسح رمز QR أو انسخ معرّف المحفظة:</span>
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=b7a6624b69166fb60e741400cee2b8bd" alt="QR Code" style="margin:auto; border-radius:12px; margin-bottom:10px; border:2px solid #00f0ff;">
+      
+      <div style="font-size:0.72rem; font-family:monospace; word-break:break-all; background:#0b111e; padding:8px; border-radius:8px; color:#00f0ff; margin-bottom:6px; cursor:pointer;" onclick="copyWalletId()" title="اضغط للنسخ">
+        b7a6624b69166fb60e741400cee2b8bd <i class="fa-regular fa-copy" style="margin-right:4px;"></i>
+      </div>
+      
+      <div style="font-size:0.85rem; color:#f1f5f9; margin-top:4px;">
+        اسم المستلم: <strong style="color:#38bdf8;">مهند خضر البطي</strong>
+      </div>
+    </div>
+
+    <!-- نموذج تأكيد التحويل المالي -->
+    <div class="admin-card">
+      <h4 style="margin-bottom:10px;"><i class="fa-solid fa-receipt"></i> تفاصيل الحوالة</h4>
+      
+      <!-- اختيار عملة الدفع -->
+      <label style="font-size:0.75rem; color:#94a3b8; display:block; margin-bottom:4px;">عملة التحويل:</label>
+      <select id="depositCurrency" class="admin-input" style="color:#fff;" onchange="updateCurrencyPlaceholder()">
+        <option value="USD">دولار أمريكي (USD $)</option>
+        <option value="SYP">ليرة سورية (SYP)</option>
+      </select>
+
+      <!-- حقل المبلغ -->
+      <input type="number" id="depositAmount" class="admin-input" placeholder="المبلغ المحول بالدولار...">
+
+      <!-- حقل رقم العملية -->
+      <input type="text" id="depositTxId" class="admin-input" placeholder="رقم عملية التحويل (ID / الإشعار)...">
+
+      <button class="admin-btn" onclick="submitDeposit()">تأكيد وإرسال إشعار التحويل</button>
+    </div>
+  </div>
+</div>
