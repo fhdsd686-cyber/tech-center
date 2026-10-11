@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مركز مهند للتكنولوجيا - خدمات الشحن والدفع</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-color: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #22c55e;
+            --border-color: #334155;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+        }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding: 20px;
+            direction: rtl;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            border: 1px solid var(--border-color);
+        }
+        .banner {
+            width: 100%;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border: 2px solid var(--border-color);
+        }
+        h1 {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+        p.subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 24px;
+        }
+        .section-title {
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            color: #38bdf8;
+            border-right: 4px solid #38bdf8;
+            padding-right: 8px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        .card {
+            background: #0f172a;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .card:hover, .card.selected {
+            border-color: var(--primary);
+            background: rgba(79, 70, 229, 0.1);
+        }
+        .card h3 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+        .card p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: #0f172a;
+            color: #fff;
+            font-size: 1rem;
+        }
+        .payment-box {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid var(--accent);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .payment-box h4 {
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+        .payment-box p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background: var(--primary-hover);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- صورة الشعار المميزة -->
+        <img src="file_0000000068988210..." alt="مركز مهند للتكنولوجيا" class="banner">
+
+        <h1>مركز مهند للتكنولوجيا</h1>
+        <p class="subtitle">بوابتك الأسرع لشحن الألعاب والتطبيقات بأمان وموثوقية</p>
+
+        <!-- 1. اختر اللعبة أو الخدمة -->
+        <div class="section-title">1. اختر التطبيق أو اللعبة أو الخدمة</div>
+        <div class="grid">
+            <div class="card" onclick="selectService(this, 'سوبر لايف - Super Live')">
+                <h3>سوبر لايف</h3>
+                <p>شحن جواهر وعملات</p>
+            </div>
+            <div class="card" onclick="selectService(this, 'ببجي موبايل')">
+                <h3>ببجي موبايل</h3>
+                <p>شدات UC</p>
+            </div>
+            <div class="card" onclick="selectService(this, 'فري فاير')">
+                <h3>فري فاير</h3>
+                <p>جوهرة الماس</p>
+            </div>
+            <div class="card" onclick="selectService(this, 'تيك توك')">
+                <h3>تيك توك</h3>
+                <p>عملات شحن</p>
+            </div>
+            <div class="card" onclick="selectService(this, 'كلاش أوف كلانس')">
+                <h3>كلاش أوف كلانس</h3>
+                <p>جواهر كلاش</p>
+            </div>
+            <div class="card" onclick="selectService(this, 'روبلوكس')">
+                <h3>روبلوكس</h3>
+                <p>روبوكس Robux</p>
+            </div>
+        </div>
+
+        <!-- 2. بيانات الحساب -->
+        <div class="section-title">2. بيانات الحساب المراد الشحن له</div>
+        <div class="form-group">
+            <label for="accountId">معرّف الحساب (ID / اسم المستخدم):</label>
+            <input type="text" id="accountId" placeholder="أدخل معرف الحساب هنا...">
+        </div>
+
+        <!-- 3. طريقة الدفع عبر شام كاش (رقم الهاتف) -->
+        <div class="section-title">3. طريقة الدفع (شام كاش)</div>
+        <div class="payment-box">
+            <h4>التحويل عبر رقم الهاتف (شام كاش)</h4>
+            <p>اسم الحساب: <strong>مركز مهند للتكنولوجيا</strong></p>
+            <p>رقم الهاتف المخصص للتحويل: <strong style="color: #38bdf8; font-size: 1.1rem;" dir="ltr">0957455972</strong></p>
+            <p style="font-size: 0.8rem; color: #facc15; margin-top: 5px;">يرجى التحويل بقيمة الطلب إلى رقم الهاتف أعلاه ثم إدخال رقم الإيصال أدناه</p>
+        </div>
+
+        <div class="form-group">
+            <label for="transferCode">رقم عملية التحويل أو رقم إيصال شام كاش:</label>
+            <input type="text" id="transferCode" placeholder="أدخل رقم الإيصال أو تفاصيل التحويل...">
+        </div>
+
+        <button class="btn" onclick="submitOrder()">إتمام الطلب وإرسال البيانات</button>
+    </div>
+
+    <script>
+        let selectedCard = '';
+        function selectService(element, serviceName) {
+            document.querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedCard = serviceName;
+        }
+
+        function submitOrder() {
+            const id = document.getElementById('accountId').value;
+            const transfer = document.getElementById('transferCode').value;
+
+            if(!selectedCard) {
+                alert('الرجاء اختيار التطبيق أو الخدمة المطلوبة أولاً!');
+                return;
+            }
+            if(!id) {
+                alert('الرجاء إدخال معرّف الحساب (ID)!');
+                return;
+            }
+            if(!transfer) {
+                alert('الرجاء إدخال رقم عملية التحويل عبر شام كاش!');
+                return;
+            }
+
+            alert('تم استلام طلبك بنجاح لخدمة (' + selectedCard + ') وسيتم معالجته فوراً بعد التحقق من تحويل شام كاش!');
+        }
+    </script>
+</body>
+</html>
