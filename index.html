@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مركز مهند للتكنولوجيا</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
+    body { background-color: #0b111e; color: #f1f5f9; overflow-x: hidden; }
+
+    /* Top Header */
+    header {
+      background: #0f172a;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(0, 240, 255, 0.15);
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+    .header-right { display: flex; align-items: center; gap: 10px; }
+    .menu-btn {
+      background: #1e293b;
+      border: 1px solid #334155;
+      color: #00f0ff;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+    .brand-title { display: flex; flex-direction: column; }
+    .brand-title h1 { font-size: 0.95rem; font-weight: 800; color: #fff; }
+    .brand-title span { font-size: 0.65rem; color: #00f0ff; }
+    .brand-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #00f0ff, #0072ff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      color: #0b111e;
+      font-size: 1.1rem;
+    }
+    .wallet-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0, 240, 255, 0.08);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-weight: bold;
+      color: #38bdf8;
+      font-size: 0.85rem;
+    }
+
+    /* Container & Search */
+    .container { padding: 16px; max-width: 500px; margin: auto; }
+    .search-bar {
+      position: relative;
+      margin-bottom: 20px;
+    }
+    .search-bar input {
+      width: 100%;
+      background: #131d31;
+      border: 1px solid #1e293b;
+      padding: 12px 42px 12px 16px;
+      border-radius: 14px;
+      color: #fff;
+      font-size: 0.85rem;
+      outline: none;
+    }
+    .search-bar input:focus { border-color: #00f0ff; }
+    .search-bar i {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #64748b;
+    }
+
+    /* Grid Sections */
+    .sections-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .sec-card {
+      background: #111a2e;
+      border: 1px solid #1e293b;
+      border-radius: 16px;
+      padding: 14px 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.2s, border-color 0.2s;
+      text-decoration: none;
+      display: block;
+    }
+    .sec-card:active { transform: scale(0.97); }
+    .card-thumb {
+      height: 105px;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+    .card-thumb i { font-size: 2rem; }
+    .card-thumb span { font-size: 0.75rem; font-weight: bold; }
+    .sec-card h3 { font-size: 0.85rem; color: #e2e8f0; font-weight: 700; }
+
+    /* Thumb Colors */
+    .thumb-social { background: linear-gradient(135deg, #4f46e5, #ec4899); color: white; }
+    .thumb-numbers { background: linear-gradient(135deg, #064e3b, #059669); color: white; }
+    .thumb-games { background: linear-gradient(135deg, #1e1b4b, #2563eb); color: #38bdf8; }
+    .thumb-chat { background: linear-gradient(135deg, #831843, #db2777); color: #fbcfe8; }
+
+    /* Sidebar Drawer */
+    .sidebar-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
+      display: none;
+      z-index: 99;
+    }
+    .sidebar {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 295px;
+      height: 100%;
+      background: #ffffff;
+      color: #1e293b;
+      z-index: 100;
+      transition: right 0.3s ease;
+      overflow-y: auto;
+      padding: 20px 16px;
+    }
+    .sidebar.active { right: 0; }
+    .sidebar-overlay.active { display: block; }
+
+    .close-btn {
+      position: absolute;
+      left: 16px;
+      top: 16px;
+      background: #eef2f6;
+      border: none;
+      border-radius: 8px;
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+      color: #0077b6;
+      font-size: 1rem;
+    }
+    .user-profile { text-align: center; margin-top: 15px; }
+    .avatar-wrapper {
+      position: relative;
+      width: 88px;
+      height: 88px;
+      margin: auto;
+      border-radius: 50%;
+      padding: 3px;
+      background: linear-gradient(135deg, #ffd700, #ff8c00);
+    }
+    .avatar-wrapper img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+    .badge {
+      position: absolute;
+      bottom: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #ff9f1c;
+      color: white;
+      font-size: 0.75rem;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-weight: bold;
+    }
+    .user-name {
+      margin-top: 10px;
+      font-weight: bold;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .balance-display {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #475569;
+      margin: 6px 0 16px;
+    }
+
+    .quick-actions { display: flex; justify-content: center; gap: 14px; margin-bottom: 20px; }
+    .action-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: #f1f5f9;
+      color: #0284c7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 1.1rem;
+    }
+    .action-btn.logout { color: #ef4444; }
+
+    /* Sidebar Links */
+    .menu-links { list-style: none; border-top: 1px solid #e2e8f0; padding-top: 10px; }
+    .menu-links li a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 12px;
+      text-decoration: none;
+      color: #334155;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: 10px;
+    }
+    .menu-links li a:hover { background: #f8fafc; }
+    .menu-links i { font-size: 1.15rem; width: 24px; text-align: center; }
+
+    /* Bottom Floating Action */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: #25d366;
+      color: white;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.7rem;
+      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+      text-decoration: none;
+      z-index: 30;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Drawer & Overlay -->
+  <div class="sidebar-overlay" id="overlay" onclick="toggleMenu()"></div>
+  <div class="sidebar" id="sidebar">
+    <button class="close-btn" onclick="toggleMenu()"><i class="fa-solid fa-xmark"></i></button>
+
+    <div class="user-profile">
+      <div class="avatar-wrapper">
+        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=200&q=80" alt="Avatar">
+        <span class="badge">وكيل</span>
+      </div>
+      <div class="user-name"><span>#1</span> مهند للتكنولوجيا 🇸🇾</div>
+      <div class="balance-display">$ 936.07</div>
+
+      <div class="quick-actions">
+        <a href="#deposit" class="action-btn"><i class="fa-solid fa-dollar-sign"></i></a>
+        <a href="#profile" class="action-btn"><i class="fa-regular fa-user"></i></a>
+        <a href="#logout" class="action-btn logout"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+      </div>
+    </div>
+
+    <ul class="menu-links">
+      <li><a href="#"><i class="fa-solid fa-house" style="color: #10b981;"></i><span>الرئيسية</span></a></li>
+      <li><a href="#"><i class="fa-solid fa-gear" style="color: #f97316;"></i><span>لوحة التحكم</span></a></li>
+      <li><a href="#"><i class="fa-solid fa-crown" style="color: #eab308;"></i><span>المستويات</span></a></li>
+      <li><a href="#"><i class="fa-solid fa-shield-halved" style="color: #f59e0b;"></i><span>الحماية</span></a></li>
+      <li><a href="#"><i class="fa-solid fa-desktop" style="color: #0284c7;"></i><span>الجلسات</span></a></li>
+      <li><a href="#"><i class="fa-regular fa-heart" style="color: #ef4444;"></i><span>مفضلتي</span></a></li>
+      <li><a href="#"><i class="fa-regular fa-bell" style="color: #f97316;"></i><span>الإشعارات</span></a></li>
+      <li><a href="#deposit"><i class="fa-solid fa-circle-plus" style="color: #10b981;"></i><span>إضافة رصيد (شام كاش)</span></a></li>
+    </ul>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="header-right">
+      <button class="menu-btn" onclick="toggleMenu()" aria-label="القائمة">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <div class="brand-title">
+        <h1>مركز مهند للتكنولوجيا</h1>
+        <span>متجرك الموثوق لشحن الألعاب</span>
+      </div>
+      <div class="brand-logo">M</div>
+    </div>
+    <div class="wallet-badge">
+      <i class="fa-solid fa-wallet"></i>
+      <span>936.07 $</span>
+    </div>
+  </header>
+
+  <!-- Container -->
+  <div class="container">
+    <div class="search-bar">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" placeholder="ابحث عن لعبة، بطاقة، أو خدمة رقمية...">
+    </div>
+
+    <div class="sections-grid">
+      <!-- سوشيال ميديا -->
+      <a href="#social" class="sec-card">
+        <div class="card-thumb thumb-social">
+          <div><i class="fa-brands fa-tiktok"></i> <i class="fa-brands fa-facebook"></i> <i class="fa-brands fa-instagram"></i></div>
+          <span>خدمات الميديا</span>
+        </div>
+        <h3>خدمات السوشل ميديا</h3>
+      </a>
+
+      <!-- قسم الأرقام -->
+      <a href="#numbers" class="sec-card">
+        <div class="card-thumb thumb-numbers">
+          <i class="fa-brands fa-whatsapp"></i>
+          <span>تفعيل الأرقام</span>
+        </div>
+        <h3>قسم الارقام</h3>
+      </a>
+
+      <!-- شحن الألعاب -->
+      <a href="#games" class="sec-card">
+        <div class="card-thumb thumb-games">
+          <i class="fa-solid fa-gamepad"></i>
+          <span>ببجي وفري فاير</span>
+        </div>
+        <h3>شحن الألعاب</h3>
+      </a>
+
+      <!-- تطبيقات الشات -->
+      <a href="#chat" class="sec-card">
+        <div class="card-thumb thumb-chat">
+          <i class="fa-solid fa-comments"></i>
+          <span>يلا لودو ولايكي</span>
+        </div>
+        <h3>تطبيقات الشات</h3>
+      </a>
+    </div>
+  </div>
+
+  <!-- Floating WhatsApp -->
+  <a href="https://wa.me/963957455972" class="whatsapp-float" target="_blank" aria-label="واتساب">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('sidebar').classList.toggle('active');
+      document.getElementById('overlay').classList.toggle('active');
+    }
+  </script>
+</body>
+</html>
