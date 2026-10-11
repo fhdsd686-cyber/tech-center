@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>مركز مهند للتكنولوجيا | متجرك الموثوق لشحن الألعاب والخدمات</title>
+  
+  <!-- خط Cairo العربي الاحترافي -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- مكتبة الأيقونات Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- إطار التنسيق Tailwind CSS المباشر -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              dark: '#070b13',
+              card: '#0f172a',
+              cardBorder: '#1e293b',
+              cyan: '#00f0ff',
+              blue: '#0072ff',
+              purple: '#9333ea',
+              gold: '#f59e0b',
+              accent: '#38bdf8'
+            }
+          },
+          fontFamily: {
+            cairo: ['Cairo', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      background-color: #070b13;
+      color: #f8fafc;
+      -webkit-tap-highlight-color: transparent;
+    }
+    
+    /* تأثيرات التوهج الزجاجي والنيون */
+    .glow-neon-cyan {
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.25);
+    }
+    .glow-neon-gold {
+      box-shadow: 0 0 25px rgba(245, 158, 11, 0.35);
+    }
+    .glow-avatar-halo {
+      box-shadow: 0 0 35px rgba(245, 158, 11, 0.45);
+    }
+    
+    /* إخفاء شريط التمرير الأفقي مع بقاء التمرير سلساً */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* حركة انزلاق القائمة الجانبية السلسة */
+    .sidebar-transition {
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+  </style>
+</head>
+<body class="bg-brand-dark min-h-screen pb-24 selection:bg-brand-cyan selection:text-black">
+
+  <!-- ==================== الشريط العلوي الرئيسي (Header) ==================== -->
+  <header class="sticky top-0 z-30 w-full bg-[#0b1222]/95 backdrop-blur-md border-b border-cyan-500/20 px-4 h-16 flex items-center justify-between shadow-md">
+    <!-- الزر الأيمن: فتح القائمة الجانبية المنسدلة -->
+    <button onclick="toggleSidebar()" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-brand-cyan hover:bg-slate-800 active:scale-95 transition">
+      <i class="fa-solid fa-bars text-xl"></i>
+    </button>
+
+    <!-- شعار واسم المتجر في المنتصف -->
+    <div class="flex items-center gap-2">
+      <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-400 to-blue-600 p-[1.5px] shadow-sm">
+        <div class="w-full h-full bg-[#0b1222] rounded-[10px] flex items-center justify-center font-black text-brand-cyan text-lg">
+          M
+        </div>
+      </div>
+      <div class="flex flex-col text-right">
+        <span class="text-sm font-extrabold text-white tracking-wide leading-tight">مركز مهند للتكنولوجيا</span>
+        <span class="text-[9px] text-cyan-300/80 font-medium">متجرك الموثوق لشحن الألعاب</span>
+      </div>
+    </div>
+
+    <!-- الرصيد المالي العلوي السريع -->
+    <div class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900/90 border border-cyan-500/30">
+      <i class="fa-solid fa-wallet text-brand-cyan text-xs"></i>
+      <span class="text-xs font-mono font-bold text-white tracking-tight">936.07 $</span>
+    </div>
+  </header>
+
+
+  <!-- ==================== المحتوى الرئيسي للصفحة ==================== -->
+  <main class="max-w-md mx-auto px-4 pt-4 space-y-4">
+
+    <!-- شريط البحث السريع والذكي -->
+    <div class="relative w-full">
+      <i class="fa-solid fa-magnifying-glass absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+      <input type="text" placeholder="ابحث عن لعبة، بطاقة، أو خدمة رقمية..." 
+             class="w-full pr-11 pl-4 py-3 rounded-2xl bg-[#0f172a] border border-slate-800 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-brand-cyan transition shadow-inner">
+    </div>
+
+    <!-- شبكة بطاقات الأقسام (مطابقة تماماً للصورة المعروضة) -->
+    <div class="grid grid-cols-2 gap-3.5 pt-1">
+
+      <!-- بطاقة: خدمات السوشيال ميديا -->
+      <div onclick="openServiceModal('خدمات السوشيل ميديا', 'متابعين، لايكات، مشاهدات ودعم الحسابات')" 
+           class="group relative bg-[#0f172a] border border-slate-800 hover:border-cyan-500/50 rounded-2xl p-3 flex flex-col items-center justify-between text-center transition-all duration-300 hover:shadow-neon-cyan active:scale-95 cursor-pointer">
+        <div class="relative w-28 h-28 rounded-xl overflow-hidden mb-2 bg-[#090d16] flex items-center justify-center border border-cyan-500/20 shadow-md">
+          <div class="absolute inset-0 bg-gradient-to-tr from-blue-600/30 via-purple-600/20 to-pink-500/30"></div>
+          <div class="relative z-10 flex flex-col items-center gap-1 text-cyan-300">
+            <div class="flex gap-1.5 text-lg text-white">
+              <i class="fa-brands fa-tiktok text-pink-400"></i>
+              <i class="fa-brands fa-facebook text-blue-400"></i>
+              <i class="fa-brands fa-instagram text-rose-400"></i>
+            </div>
+            <span class="text-[10px] font-bold text-slate-300">خدمات الميديا</span>
+          </div>
+        </div>
+        <span class="text-xs font-bold text-white group-hover:text-brand-cyan transition leading-tight">خدمات السوشل ميديا</span>
+      </div>
+
+      <!-- بطاقة: قسم تفعيل الأرقام -->
+      <div onclick="openServiceModal('قسم الأرقام الوهمية', 'أرقام تفعيل واتساب وتيليجرام جاهزة وفورية')" 
+           class="group relative bg-[#0f172a] border border-slate-800 hover:border-cyan-500/50 rounded-2xl p-3 flex flex-col items-center justify-between text-center transition-all duration-300 hover:shadow-neon-cyan active:scale-95 cursor-pointer">
+        <div class="relative w-28 h-28 rounded-xl overflow-hidden mb-2 bg-[#090d16] flex items-center justify-center border border-emerald-500/20 shadow-md">
+          <div class="absolute inset-0 bg-gradient-to-tr from-emerald-600/20 via-teal-600/20 to-cyan-500/20"></div>
+          <div class="relative z-10 flex flex-col items-center gap-1 text-emerald-400">
+            <i class="fa-brands fa-whatsapp text-2xl"></i>
+            <span class="text-[10px] font-bold text-slate-300">تفعيل الأرقام</span>
+          </div>
+        </div>
+        <span class="text-xs font-bold text-white group-hover:text-brand-cyan transition leading-tight">قسم الارقام</span>
+      </div>
+
+      <!-- بطاقة: شحن ببجي موبايل -->
+      <div onclick="openServiceModal('ببجي موبايل (PUBG Mobile)', 'شحن شدات UC فورية عبر الـ ID الرسمي')" 
+           class="group relative bg-[#0f172a] border border-slate-800 hover:border-cyan-500/50 rounded-2xl p-3 flex flex-col items-center justify-between text-center transition-all duration-300 hover:shadow-neon-cyan active:scale-95 cursor-pointer">
+        <div class="relative w-28 h-28 rounded-xl overflow-hidden mb-2 bg-[#090d16] flex items-center justify-center border border-amber-500/20 shadow-md">
+          <div class="absolute inset-0 bg-gradient-to-tr from-amber-600/20 via-orange-600/20 to-yellow-500/20"></div>
+          <div class="relative z-10 flex flex-col items-center gap-1
