@@ -1,0 +1,309 @@
+html_code = """<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مركز مهند للتكنولوجيا - خدمات الشحن والدفع</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-color: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #22c55e;
+            --border-color: #334155;
+            --danger: #ef4444;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+        }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding: 20px;
+            direction: rtl;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            border: 1px solid var(--border-color);
+        }
+        h1 {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+        p.subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 24px;
+        }
+        .section-title {
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            color: #38bdf8;
+            border-right: 4px solid #38bdf8;
+            padding-right: 8px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        .card {
+            background: #0f172a;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .card:hover, .card.selected {
+            border-color: var(--primary);
+            background: rgba(79, 70, 229, 0.1);
+        }
+        .card h3 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+        .card p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: #0f172a;
+            color: #fff;
+            font-size: 1rem;
+        }
+        .payment-box {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid var(--accent);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .payment-box h4 {
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+        .payment-box p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: block;
+            text-align: center;
+            text-decoration: none;
+        }
+        .btn:hover {
+            background: var(--primary-hover);
+        }
+        /* قسم الآدمن */
+        .admin-link {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .admin-panel {
+            display: none;
+            margin-top: 25px;
+            background: #090d16;
+            border: 1px solid #eab308;
+            border-radius: 12px;
+            padding: 18px;
+        }
+        .admin-panel h3 {
+            color: #eab308;
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+        .admin-item {
+            background: #1e293b;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+        .admin-btn {
+            background: #eab308;
+            color: #000;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+            width: 100%;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>مركز مهند للتكنولوجيا</h1>
+        <p class="subtitle">بوابتك الأسرع لشحن الألعاب والتطبيقات بأمان وموثوقية</p>
+
+        <!-- 1. اختيار الخدمة -->
+        <div class="section-title">1. اختر التطبيق أو اللعبة أو الخدمة</div>
+        <div class="grid">
+            <div class="card" onclick="selectService(this, 'سوبر لايف')">
+                <h3>سوبر لايف</h3>
+                <p>شحن جواهر وعملات</p>
+            </div>
+            <div class="card" onclick="selectService(this, 'ببجي موبايل')">
+                <h3>ببجي موبايل</h3>
+                <p>شدات UC</p>
+            </div>
+            <div class="card" onclick="selectService(this, 'فري فاير')">
+                <h3>فري فاير</h3>
+                <p>جوهرة الماس</p>
+            </div>
+            <div class="card" onclick="selectService(this, 'تيك توك')">
+                <h3>تيك توك</h3>
+                <p>عملات شحن</p>
+            </div>
+            <div class="card" onclick="selectService(this, 'كلاش أوف كلانس')">
+                <h3>كلاش أوف كلانس</h3>
+                <p>جواهر كلاش</p>
+            </div>
+            <div class="card" onclick="selectService(this, 'روبلوكس')">
+                <h3>روبلوكس</h3>
+                <p>روبوكس Robux</p>
+            </div>
+        </div>
+
+        <!-- 2. بيانات الحساب -->
+        <div class="section-title">2. بيانات الحساب المراد الشحن له</div>
+        <div class="form-group">
+            <label for="accountId">معرّف الحساب (ID / اسم المستخدم):</label>
+            <input type="text" id="accountId" placeholder="أدخل معرف الحساب هنا...">
+        </div>
+
+        <!-- 3. طريقة الدفع -->
+        <div class="section-title">3. طريقة الدفع (شام كاش)</div>
+        <div class="payment-box">
+            <h4>التحويل عبر رقم الهاتف (شام كاش)</h4>
+            <p>اسم الحساب: <strong>مركز مهند للتكنولوجيا</strong></p>
+            <p>رقم الهاتف المخصص للتحويل: <strong style="color: #38bdf8; font-size: 1.1rem;" dir="ltr">0957455972</strong></p>
+            <p style="font-size: 0.8rem; color: #facc15; margin-top: 5px;">يرجى التحويل إلى الرقم أعلاه ثم إدخال رقم الإيصال</p>
+        </div>
+
+        <div class="form-group">
+            <label for="transferCode">رقم عملية التحويل أو رقم إيصال شام كاش:</label>
+            <input type="text" id="transferCode" placeholder="أدخل رقم الإيصال...">
+        </div>
+
+        <button class="btn" onclick="submitOrder()">إتمام الطلب عبر الواتساب</button>
+
+        <!-- مدخل لوحة الآدمن -->
+        <div class="admin-link" onclick="openAdmin()">دخول المسؤول (fhdsd686@gmail.com)</div>
+
+        <div class="admin-panel" id="adminPanel">
+            <h3>لوحة تحكم المسؤول (مهند)</h3>
+            <div class="admin-item">
+                <strong>الحساب المعتمد:</strong> fhdsd686@gmail.com
+            </div>
+            <div class="admin-item">
+                <strong>رقم واتساب الاستقبال:</strong> 0957455972
+            </div>
+            <div class="admin-item">
+                <strong>رقم شام كاش:</strong> 0957455972
+            </div>
+            <button class="admin-btn" onclick="window.open('https://www.midasbuy.com', '_blank')">فتح موقع Midasbuy لشحن ببجي</button>
+            <button class="admin-btn" style="background:#22c55e; color:#fff; margin-top:6px;" onclick="window.open('https://shop2game.com', '_blank')">فتح مركز شحن فري فاير (Garena)</button>
+        </div>
+    </div>
+
+    <script>
+        let selectedCard = '';
+        function selectService(element, serviceName) {
+            document.querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedCard = serviceName;
+        }
+
+        function submitOrder() {
+            const id = document.getElementById('accountId').value;
+            const transfer = document.getElementById('transferCode').value;
+
+            if(!selectedCard) {
+                alert('الرجاء اختيار الخدمة أولاً!');
+                return;
+            }
+            if(!id) {
+                alert('الرجاء إدخال الآيدي!');
+                return;
+            }
+            if(!transfer) {
+                alert('الرجاء إدخال رقم إيصال شام كاش!');
+                return;
+            }
+
+            const myWhatsAppNumber = '963957455972';
+            const message = `مرحباً مركز مهند للتكنولوجيا، أريد طلب شحن:\n\n🎮 الخدمة: ${selectedCard}\n🆔 الآيدي: ${id}\n💳 رقم إيصال شام كاش: ${transfer}`;
+            window.open(`https://wa.me/${myWhatsAppNumber}?text=${encodeURIComponent(message)}`, '_blank');
+        }
+
+        function openAdmin() {
+            const email = prompt("أدخل بريد المسؤول:");
+            if (email && email.trim().toLowerCase() === "fhdsd686@gmail.com") {
+                const pass = prompt("أدخل كلمة المرور (الافتراضية: 1234):");
+                if (pass === "1234") {
+                    document.getElementById('adminPanel').style.display = 'block';
+                    alert("مرحباً بك يا مهند! تم فتح لوحة تحكم المسؤول.");
+                } else {
+                    alert("كلمة المرور غير صحيحة!");
+                }
+            } else {
+                alert("عذراً، هذا البريد ليس لديه صلاحية الآدمن!");
+            }
+        }
+    </script>
+</body>
+</html>"""
+
+with open("index.html", "w", encoding="utf-8") as f:
+    f.write(html_code)
+
